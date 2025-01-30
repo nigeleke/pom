@@ -40,6 +40,8 @@ impl<'a, O> Parser<'a, O> {
 
 	/// Apply the parser to parse input.
 	pub fn parse(&self, input: &'a [u8]) -> Result<O> {
+		#[cfg(feature = "trace")]
+		eprintln!("Parsing... {:10?}", input);
 		self.0.parse(input)
 	}
 
