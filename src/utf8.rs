@@ -41,17 +41,27 @@ impl<'a, O> Parser<'a, O> {
 	/// Apply the parser to parse input.
 	pub fn parse(&self, input: &'a [u8]) -> Result<O> {
 		#[cfg(feature = "trace")]
-		eprintln!("Parsing... {:10?}", input);
+		eprintln!(
+			"input... {:10?}",
+			std::str::from_utf8(input).map(|s| s.to_string())
+		);
 		self.0.parse(input)
 	}
 
 	/// Parse input at specified byte position.
 	pub fn parse_at(&self, input: &'a [u8], start: usize) -> Result<(O, usize)> {
+		#[cfg(feature = "trace")]
+		eprintln!(
+			"input_at... {:10?}",
+			std::str::from_utf8(input).map(|s| s.to_string())
+		);
 		self.0.parse_at(input, start)
 	}
 
 	/// Apply the parser to parse input.
 	pub fn parse_str(&self, input: &'a str) -> Result<O> {
+		#[cfg(feature = "trace")]
+		eprintln!("input_str... {:10?}", input.to_string());
 		self.0.parse(input.as_bytes())
 	}
 
